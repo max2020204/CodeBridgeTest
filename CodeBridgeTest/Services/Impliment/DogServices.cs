@@ -6,7 +6,7 @@ namespace CodeBridgeTest.Services.Impliment
 {
     public class DogServices : IDogsServices
     {
-        public IDogRepository Dog { get; set; }
+        private IDogRepository Dog { get; set; }
         public DogServices(IDogRepository dog)
         {
             Dog = dog;

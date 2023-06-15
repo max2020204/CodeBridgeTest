@@ -1,8 +1,6 @@
-﻿using CodeBridgeTest.Data;
-using CodeBridgeTest.Data.Repository.Interfaces;
+﻿using CodeBridgeTest.Data.Repository.Interfaces;
 using CodeBridgeTest.Model;
 using CodeBridgeTest.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +10,7 @@ namespace CodeBridgeTest.Controllers
     public class DogInfoController : ControllerBase
     {
         private IDogRepository Dog { get; set; }
-        IDogsServices Services { get; set; }
+        private IDogsServices Services { get; set; }
         public DogInfoController(IDogRepository _dog, IDogsServices services)
         {
             Dog = _dog;
