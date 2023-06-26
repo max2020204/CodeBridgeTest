@@ -1,11 +1,6 @@
 ﻿using CodeBridgeTest.Data.Factory.Interfaces;
 using CodeBridgeTest.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeBridgeTest.Tests.Data.Factory.Impliment
 {

@@ -6,20 +6,22 @@ namespace CodeBridgeTest.Data.Factory.Impliment
 {
     public class SortStrategyFactory : ISortStrategyFactory<Dog>
     {
-        private IServiceProvider provider { get; set; }
+        private readonly IServiceProvider _provider;
+
         public SortStrategyFactory(IServiceProvider _provider)
         {
-            provider = _provider;
+            this._provider = _provider;
         }
+
         public ISortStrategy<Dog> Create(string attribute, string order)
         {
-            var services = provider.GetServices<ISortStrategy<Dog>>();
+            var services = _provider.GetServices<ISortStrategy<Dog>>();
             if (attribute == Attributes.TailLength)
             {
                 if (order == Order.Desc)
-                    return services.FirstOrDefault(x => x.GetType() == typeof(DogTailLengthDescendingSortStrategy));    
+                    return services.FirstOrDefault(x => x.GetType() == typeof(DogTailLengthDescendingSortStrategy));
                 else
-                    return services.FirstOrDefault(x => x.GetType() == typeof(DogTailLengthAscendingSortStrategy));   
+                    return services.FirstOrDefault(x => x.GetType() == typeof(DogTailLengthAscendingSortStrategy));
             }
             else if (attribute == Attributes.Weight)
             {

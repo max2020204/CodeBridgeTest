@@ -7,7 +7,7 @@ namespace CodeBridgeTest.Middlewares
         private readonly RequestDelegate _next;
         private readonly ILogger<RateLimitMiddleware> _logger;
         private readonly ConcurrentDictionary<string, List<DateTime>> _requestDictionary;
-        private const int MAX_REQUESTS = 10; // Максимальное количество запросов за 10 секунд
+        private const int _maxRequests = 10;
 
         public RateLimitMiddleware(RequestDelegate next, ILogger<RateLimitMiddleware> logger)
         {
@@ -48,7 +48,7 @@ namespace CodeBridgeTest.Middlewares
                 {
                     _requestDictionary.TryRemove(ipAddress, out _);
                 }
-                return requestTimes.Count > MAX_REQUESTS;
+                return requestTimes.Count > _maxRequests;
             }
 
             return false;

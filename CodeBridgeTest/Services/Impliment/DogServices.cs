@@ -6,31 +6,33 @@ namespace CodeBridgeTest.Services.Impliment
 {
     public class DogServices : IDogsServices
     {
-        private IDogRepository Dog { get; set; }
+        private readonly IDogRepository _dog;
+
         public DogServices(IDogRepository dog)
         {
-            Dog = dog;
+            _dog = dog;
         }
+
         public IEnumerable<Dog> GetDogs(int? pageNumber, int? pageSize, string? attribute, string? order)
         {
             if (pageNumber.HasValue && pageSize.HasValue)
             {
                 if (!string.IsNullOrEmpty(attribute) && !string.IsNullOrEmpty(order))
                 {
-                    return Dog.GetDogPeganation((int)pageNumber, (int)pageSize, attribute, order);
+                    return _dog.GetDogPeganation((int)pageNumber, (int)pageSize, attribute, order);
                 }
                 else
                 {
-                    return Dog.GetDogPeganation((int)pageNumber, (int)pageSize);
+                    return _dog.GetDogPeganation((int)pageNumber, (int)pageSize);
                 }
             }
             else if (!string.IsNullOrEmpty(attribute) && !string.IsNullOrEmpty(order))
             {
-                return Dog.SortDog(attribute, order);
+                return _dog.SortDog(attribute, order);
             }
             else
             {
-                return Dog.GetAll();
+                return _dog.GetAll();
             }
         }
     }

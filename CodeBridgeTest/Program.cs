@@ -7,9 +7,7 @@ using CodeBridgeTest.Middlewares;
 using CodeBridgeTest.Model;
 using CodeBridgeTest.Services.Impliment;
 using CodeBridgeTest.Services.Interfaces;
-using CodeBridgeTest.Services.Managment;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeBridgeTest
 {
@@ -54,7 +52,6 @@ namespace CodeBridgeTest
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

@@ -7,8 +7,10 @@ namespace CodeBridgeTest.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
+
         [Range(0, int.MaxValue)]
         public float TailLength { get; set; }
+
         [Range(0, int.MaxValue)]
         public float Weight { get; set; }
     }

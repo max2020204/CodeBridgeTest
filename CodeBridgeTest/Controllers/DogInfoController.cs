@@ -9,33 +9,36 @@ namespace CodeBridgeTest.Controllers
     [ApiController]
     public class DogInfoController : ControllerBase
     {
-        private IDogRepository Dog { get; set; }
-        private IDogsServices Services { get; set; }
-        public DogInfoController(IDogRepository _dog, IDogsServices services)
-        {
-            Dog = _dog;
-            Services = services;
+        private readonly IDogRepository _dog;
+        private readonly IDogsServices _services;
 
+        public DogInfoController(IDogRepository dog, IDogsServices services)
+        {
+            _dog = dog;
+            _services = services;
         }
+
         [HttpGet]
         [Route("/ping")]
         public IActionResult Ping()
         {
             return Ok("Dogs house service. Version 1.0.1");
         }
+
         [HttpGet]
         [Route("/dogs")]
         public IActionResult Dogs([FromQuery] int? page, [FromQuery] int? pageSize, [FromQuery] string? attribute, [FromQuery] string? order)
         {
-            return Ok(Services.GetDogs(page, pageSize, attribute, order));
+            return Ok(_services.GetDogs(page, pageSize, attribute, order));
         }
+
         [HttpPost]
         [Route("/dog")]
         public IActionResult NewDog(Dog dog)
         {
             try
             {
-                Dog.Save(dog);
+                _dog.Save(dog);
                 return Ok();
             }
             catch (DbUpdateException ex)

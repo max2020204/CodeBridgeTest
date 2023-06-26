@@ -1,13 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeBridgeTest.Data.Factory.Impliment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeBridgeTest.Data.Factory.Interfaces;
 using CodeBridgeTest.Model;
 using CodeBridgeTest.Tests.Data.Factory.Impliment;
-using CodeBridgeTest.Data.Factory.Interfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeBridgeTest.Data.Factory.Impliment.Tests
 {
@@ -20,13 +14,8 @@ namespace CodeBridgeTest.Data.Factory.Impliment.Tests
         [TestMethod()]
         public void Sort_ShouldSortDogsInAscendingOrder()
         {
-            // Arrange
             var expected = Dogs.OrderBy(SortProperty);
-
-            // Act
             var result = SortStrategy.Sort(Dogs);
-
-            // Assert
             Assert.IsTrue(expected.SequenceEqual(result));
         }
     }

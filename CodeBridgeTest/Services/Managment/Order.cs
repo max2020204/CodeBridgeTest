@@ -4,6 +4,5 @@
     {
         public const string Desc = "Desc";
         public const string Asc = "Asc";
-
     }
 }

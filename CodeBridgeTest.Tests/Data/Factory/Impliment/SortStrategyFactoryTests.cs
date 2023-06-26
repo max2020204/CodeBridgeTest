@@ -1,22 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeBridgeTest.Data.Factory.Impliment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using CodeBridgeTest.Data.Factory.Interfaces;
+﻿using CodeBridgeTest.Data.Factory.Interfaces;
 using CodeBridgeTest.Model;
-using Microsoft.Extensions.DependencyInjection;
 using CodeBridgeTest.Services.Managment;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace CodeBridgeTest.Data.Factory.Impliment.Tests
 {
     [TestClass()]
     public class SortStrategyFactoryTests
     {
-        private SortStrategyFactory sortStrategyFactory;
+        private SortStrategyFactory? _sortStrategyFactory;
 
         [TestInitialize]
         public void TestInitialize()
@@ -31,70 +24,52 @@ namespace CodeBridgeTest.Data.Factory.Impliment.Tests
                 new DogWeightAscendingSortStrategy()
                 });
 
-            sortStrategyFactory = new SortStrategyFactory(serviceProviderMock.Object);
+            _sortStrategyFactory = new SortStrategyFactory(serviceProviderMock.Object);
         }
 
         [TestMethod()]
         public void Create_AttributeTailLenghtWithOrderDesc_ShouldReturnCorrectSortStrategy()
         {
-            // Arrange
             string attribute = Attributes.TailLength;
             string order = Order.Desc;
-
-            // Act
-            var result = sortStrategyFactory.Create(attribute, order);
-
-            // Assert
+            var result = _sortStrategyFactory.Create(attribute, order);
             Assert.IsInstanceOfType(result, typeof(DogTailLengthDescendingSortStrategy));
         }
+
         [TestMethod()]
         public void Create_AttributeTailLenghtWithOrderAcs_ShouldReturnCorrectSortStrategy()
         {
-            // Arrange
             string attribute = Attributes.TailLength;
             string order = Order.Asc;
-
-            // Act
-            var result = sortStrategyFactory.Create(attribute, order);
-
-            // Assert
+            var result = _sortStrategyFactory.Create(attribute, order);
             Assert.IsInstanceOfType(result, typeof(DogTailLengthAscendingSortStrategy));
         }
+
         [TestMethod()]
         public void Create_AttributeWeightWithOrderAcs_ShouldReturnCorrectSortStrategy()
         {
-            // Arrange
             string attribute = Attributes.Weight;
             string order = Order.Asc;
-
-            // Act
-            var result = sortStrategyFactory.Create(attribute, order);
-
-            // Assert
+            var result = _sortStrategyFactory.Create(attribute, order);
             Assert.IsInstanceOfType(result, typeof(DogWeightAscendingSortStrategy));
         }
+
         [TestMethod()]
         public void Create_AttributeWeightWithOrderDesc_ShouldReturnCorrectSortStrategy()
         {
-            // Arrange
             string attribute = Attributes.Weight;
             string order = Order.Desc;
+            var result = _sortStrategyFactory.Create(attribute, order);
 
-            // Act
-            var result = sortStrategyFactory.Create(attribute, order);
-
-            // Assert
             Assert.IsInstanceOfType(result, typeof(DogWeightDescendingSortStrategy));
         }
+
         [TestMethod()]
         public void Create_WithInvalidAttributes_ShouldThrowArgumentException()
         {
-            // Arrange
             string attribute = "InvalidAttribute";
             string order = Order.Desc;
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => sortStrategyFactory.Create(attribute, order));
+            Assert.ThrowsException<ArgumentException>(() => _sortStrategyFactory.Create(attribute, order));
         }
     }
 }

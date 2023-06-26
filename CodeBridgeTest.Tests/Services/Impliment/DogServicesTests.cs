@@ -1,32 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeBridgeTest.Services.Impliment;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeBridgeTest.Data.Repository.Interfaces;
 using CodeBridgeTest.Model;
 using CodeBridgeTest.Services.Managment;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using CodeBridgeTest.Data.Repository.Interfaces;
-using CodeBridgeTest.Services.Interfaces;
 
 namespace CodeBridgeTest.Services.Impliment.Tests
 {
     [TestClass()]
     public class DogServicesTests
     {
-        Mock<IDogRepository> DogRepository;
-        List<Dog> Dogs;
-        DogServices services;
+        private Mock<IDogRepository>? _dogRepository;
+        private List<Dog>? _dogs;
+        private DogServices? _services;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            DogRepository = new Mock<IDogRepository>();
-            services = new DogServices(DogRepository.Object);
-            Dogs = Dogs = new List<Dog>()
+            _dogRepository = new Mock<IDogRepository>();
+            _services = new DogServices(_dogRepository.Object);
+            _dogs = _dogs = new List<Dog>()
             {
                  new Dog
                 {
@@ -58,11 +50,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         [TestMethod()]
         public void Dogs_Should_Return_Expected_List_From_Service()
         {
-            DogRepository.Setup(x => x.GetAll()).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetAll()).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(null, null, null, null);
+            var result = _services.GetDogs(null, null, null, null);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -70,11 +62,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         {
             int pageNumber = 2;
             int pageSize = 2;
-            DogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(pageNumber, pageSize, null, null);
+            var result = _services.GetDogs(pageNumber, pageSize, null, null);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -84,11 +76,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
             int pageSize = 2;
             string attribute = Attributes.TailLength;
             string order = Order.Asc;
-            DogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(pageNumber, pageSize, attribute, order);
+            var result = _services.GetDogs(pageNumber, pageSize, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -98,11 +90,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
             int pageSize = 2;
             string attribute = Attributes.TailLength;
             string order = Order.Desc;
-            DogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(pageNumber, pageSize, attribute, order);
+            var result = _services.GetDogs(pageNumber, pageSize, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -112,11 +104,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
             int pageSize = 2;
             string attribute = Attributes.Weight;
             string order = Order.Asc;
-            DogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(pageNumber, pageSize, attribute, order);
+            var result = _services.GetDogs(pageNumber, pageSize, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -126,11 +118,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
             int pageSize = 2;
             string attribute = Attributes.Weight;
             string order = Order.Desc;
-            DogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.GetDogPeganation(pageNumber, pageSize, attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(pageNumber, pageSize, attribute, order);
+            var result = _services.GetDogs(pageNumber, pageSize, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -138,11 +130,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         {
             string attribute = Attributes.TailLength;
             string order = Order.Asc;
-            DogRepository.Setup(x => x.SortDog(attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.SortDog(attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(null, null, attribute, order);
+            var result = _services.GetDogs(null, null, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -150,11 +142,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         {
             string attribute = Attributes.TailLength;
             string order = Order.Desc;
-            DogRepository.Setup(x => x.SortDog(attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.SortDog(attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(null, null, attribute, order);
+            var result = _services.GetDogs(null, null, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -162,11 +154,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         {
             string attribute = Attributes.Weight;
             string order = Order.Asc;
-            DogRepository.Setup(x => x.SortDog(attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.SortDog(attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(null, null, attribute, order);
+            var result = _services.GetDogs(null, null, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
 
         [TestMethod()]
@@ -174,12 +166,11 @@ namespace CodeBridgeTest.Services.Impliment.Tests
         {
             string attribute = Attributes.Weight;
             string order = Order.Desc;
-            DogRepository.Setup(x => x.SortDog(attribute, order)).Returns(Dogs.AsQueryable());
+            _dogRepository.Setup(x => x.SortDog(attribute, order)).Returns(_dogs.AsQueryable());
 
-            var result = services.GetDogs(null, null, attribute, order);
+            var result = _services.GetDogs(null, null, attribute, order);
 
-            Assert.IsTrue(Dogs.SequenceEqual(result));
+            Assert.IsTrue(_dogs.SequenceEqual(result));
         }
-
     }
 }

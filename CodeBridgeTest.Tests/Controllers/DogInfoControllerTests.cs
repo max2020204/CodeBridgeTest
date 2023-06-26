@@ -1,30 +1,30 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CodeBridgeTest.Data.Repository.Interfaces;
+﻿using CodeBridgeTest.Data.Repository.Interfaces;
+using CodeBridgeTest.Model;
 using CodeBridgeTest.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Moq;
-using CodeBridgeTest.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace CodeBridgeTest.Controllers.Tests
 {
     [TestClass()]
     public class DogInfoControllerTests
     {
-        private Mock<IDogRepository> mockDogRepository;
-        private DogInfoController controller;
+        private Mock<IDogRepository>? _mockDogRepository;
+        private DogInfoController? _controller;
+
         [TestInitialize]
         public void TestInitialize()
         {
-            mockDogRepository = new Mock<IDogRepository>();
-            controller = new DogInfoController(mockDogRepository.Object, new Mock<IDogsServices>().Object);
-
+            _mockDogRepository = new Mock<IDogRepository>();
+            _controller = new DogInfoController(_mockDogRepository.Object, new Mock<IDogsServices>().Object);
         }
 
         [TestMethod()]
         public void Ping_Should_Return_Service_Version()
         {
-            var result = controller.Ping() as OkObjectResult;
+            var result = _controller.Ping() as OkObjectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Dogs house service. Version 1.0.1", result.Value);
@@ -41,13 +41,13 @@ namespace CodeBridgeTest.Controllers.Tests
                 Weight = 33
             };
 
-            mockDogRepository.Setup(r => r.Save(newDog)).Verifiable();
+            _mockDogRepository.Setup(r => r.Save(newDog)).Verifiable();
 
-            var result = controller.NewDog(newDog) as OkResult;
+            var result = _controller.NewDog(newDog) as OkResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(200, result.StatusCode);
-            mockDogRepository.Verify();
+            _mockDogRepository.Verify();
         }
 
         [TestMethod()]
@@ -62,9 +62,9 @@ namespace CodeBridgeTest.Controllers.Tests
                 Weight = 32f
             };
 
-            mockDogRepository.Setup(r => r.Save(newDog)).Throws(new DbUpdateException("Test Exception Message"));
+            _mockDogRepository.Setup(r => r.Save(newDog)).Throws(new DbUpdateException("Test Exception Message"));
 
-            var result = controller.NewDog(newDog) as BadRequestObjectResult;
+            var result = _controller.NewDog(newDog) as BadRequestObjectResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(400, result.StatusCode);

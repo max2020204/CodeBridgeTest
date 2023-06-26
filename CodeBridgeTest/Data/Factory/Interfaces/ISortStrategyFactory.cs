@@ -1,6 +1,4 @@
-﻿using CodeBridgeTest.Model;
-
-namespace CodeBridgeTest.Data.Factory.Interfaces
+﻿namespace CodeBridgeTest.Data.Factory.Interfaces
 {
     public interface ISortStrategyFactory<T> where T : class
     {

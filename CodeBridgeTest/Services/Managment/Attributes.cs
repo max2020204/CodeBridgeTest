@@ -3,6 +3,6 @@
     public class Attributes
     {
         public const string Weight = "Weight";
-        public const string TailLength = "TailLength";   
+        public const string TailLength = "TailLength";
     }
 }

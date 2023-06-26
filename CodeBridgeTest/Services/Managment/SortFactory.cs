@@ -6,6 +6,5 @@
         public const string Ascending = "Ascending";
         public const string WeightDescending = "WeightDescending";
         public const string WeightAscending = "WeightAscending";
-
     }
 }
